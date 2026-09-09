@@ -743,6 +743,7 @@ footer p{
 
 <script>
 const WEDDING_DATE="2026-11-10T18:30:00+05:30";
+const INVITATION_URL="https://surya-prakasam-siva.github.io/surya-preethi-wedding-invitation/";
 
 function openInvitation(){
   document.getElementById("cover").classList.add("hide");
@@ -957,14 +958,13 @@ function toggleMusic(){
 function shareInvitation(){
   const data={
     title:"Surya Prakasam & Preethi — Wedding Invitation",
-    text:"Join us for our reception on 10 November 2026 and wedding ceremony on 11 November 2026 at Durga Mahal A/C, Katpadi.",
-    url:location.href
+    text:"Join us for our reception on 10 November 2026 and wedding ceremony on 11 November 2026 at Durga Mahal A/C, Katpadi.\n\n"+INVITATION_URL
   };
 
   if(navigator.share){
     navigator.share(data);
   }else{
-    navigator.clipboard?.writeText(location.href)
+    navigator.clipboard?.writeText(data.text)
       .then(()=>alert("Invitation link copied!"));
   }
 }
