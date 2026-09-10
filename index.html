@@ -753,14 +753,14 @@ function openInvitation(){
   const audio = document.getElementById("music");
   const musicBtn = document.getElementById("musicBtn");
 
-  audio.play()
-    .then(() => {
-      playing = true;
-      musicBtn.textContent = "Ⅱ";
-    })
-    .catch(error => {
-      console.log("Music could not start:", error);
-    });
+  // audio.play()
+  //   .then(() => {
+  //     playing = true;
+  //     musicBtn.textContent = "Ⅱ";
+  //   })
+  //   .catch(error => {
+  //     console.log("Music could not start:", error);
+  //   });
 }
 
 let fireworksStarted=false;
