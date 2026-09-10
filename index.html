@@ -618,8 +618,8 @@ footer p{
 </div>
 
 <button class="music" id="musicBtn" onclick="toggleMusic()">♫</button>
-<audio id="music">
-  <source src="music/kana-kangiren-v1.mp3" type="audio/mpeg">
+<audio id="music" preload="auto" loop>
+  <source src="./music/kana-kangiren-v1.mp3" type="audio/mpeg">
 </audio>
 
 <main class="page">
@@ -749,6 +749,18 @@ function openInvitation(){
   document.body.style.overflow="auto";
   window.scrollTo({top:0,behavior:"smooth"});
   startFireworks();
+
+  const audio = document.getElementById("music");
+  const musicBtn = document.getElementById("musicBtn");
+
+  audio.play()
+    .then(() => {
+      playing = true;
+      musicBtn.textContent = "Ⅱ";
+    })
+    .catch(error => {
+      console.log("Music could not start:", error);
+    });
 }
 
 let fireworksStarted=false;
@@ -935,29 +947,24 @@ updateCountdown();
 let playing=false;
 
 function toggleMusic(){
-  const audio=document.getElementById("music");
-  const src=audio.querySelector("source");
+  const audio = document.getElementById("music");
+  const musicBtn = document.getElementById("musicBtn");
 
-  if(!src.getAttribute("src")){
-    alert("Add your MP3 URL in the audio section of index.html.");
-    return;
-  }
-
-  if(playing){
-    audio.pause();
-    musicBtn.textContent="♫";
+  if(audio.paused){
+    audio.play()
+      .then(() => {
+        playing = true;
+        musicBtn.textContent = "Ⅱ";
+      })
+      .catch(error => {
+        console.error("Audio playback failed:", error);
+        alert("Unable to play the music. Please check the MP3 file.");
+      });
   }else{
-    audio.play();
-    musicBtn.textContent="Ⅱ";
-    audio.onended=function(){
-      setTimeout(()=>{
-        audio.currentTime=0;
-        audio.play();
-      },5000);
-    };
+    audio.pause();
+    playing = false;
+    musicBtn.textContent = "♫";
   }
-
-  playing=!playing;
 }
 
 function shareInvitation(){
