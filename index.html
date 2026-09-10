@@ -618,8 +618,8 @@ footer p{
 </div>
 
 <button class="music" id="musicBtn" onclick="toggleMusic()">♫</button>
-<audio id="music" loop>
-  <source src="" type="audio/mpeg">
+<audio id="music">
+  <source src="music/kana-kangiren-v1.mp3" type="audio/mpeg">
 </audio>
 
 <main class="page">
@@ -743,7 +743,6 @@ footer p{
 
 <script>
 const WEDDING_DATE="2026-11-10T18:30:00+05:30";
-const INVITATION_URL="https://surya-prakasam-siva.github.io/surya-preethi-wedding-invitation/";
 
 function openInvitation(){
   document.getElementById("cover").classList.add("hide");
@@ -950,6 +949,12 @@ function toggleMusic(){
   }else{
     audio.play();
     musicBtn.textContent="Ⅱ";
+    audio.onended=function(){
+      setTimeout(()=>{
+        audio.currentTime=0;
+        audio.play();
+      },5000);
+    };
   }
 
   playing=!playing;
@@ -957,14 +962,14 @@ function toggleMusic(){
 
 function shareInvitation(){
   const data={
-    title:"Surya Prakasam & Preethi — Wedding Invitation",
-    text:"Join us for our reception on 10 November 2026 and wedding ceremony on 11 November 2026 at Durga Mahal A/C, Katpadi.\n\n"+INVITATION_URL
+    title:"Wedding Invitation | Surya Prakasam & Preethi",
+    url:location.href
   };
 
   if(navigator.share){
     navigator.share(data);
   }else{
-    navigator.clipboard?.writeText(data.text)
+    navigator.clipboard?.writeText(location.href)
       .then(()=>alert("Invitation link copied!"));
   }
 }
