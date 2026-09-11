@@ -967,17 +967,16 @@ function toggleMusic(){
   }
 }
 
-window.addEventListener("blur",()=>{
+document.addEventListener("visibilitychange",()=>{
   const audio=document.getElementById("music");
-  if(playing){
-    audio.pause();
-  }
-});
-
-window.addEventListener("focus",()=>{
-  const audio=document.getElementById("music");
-  if(playing){
-    audio.play();
+  if(document.hidden){
+    if(playing){
+      audio.pause();
+    }
+  }else{
+    if(playing){
+      audio.play();
+    }
   }
 });
 
