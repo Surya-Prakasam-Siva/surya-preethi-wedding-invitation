@@ -753,14 +753,14 @@ function openInvitation(){
   const audio = document.getElementById("music");
   const musicBtn = document.getElementById("musicBtn");
 
-  // audio.play()
-  //   .then(() => {
-  //     playing = true;
-  //     musicBtn.textContent = "Ⅱ";
-  //   })
-  //   .catch(error => {
-  //     console.log("Music could not start:", error);
-  //   });
+  audio.play()
+    .then(() => {
+      playing = true;
+      musicBtn.textContent = "Ⅱ";
+    })
+    .catch(error => {
+      console.log("Music could not start:", error);
+    });
 }
 
 let fireworksStarted=false;
@@ -966,6 +966,20 @@ function toggleMusic(){
     musicBtn.textContent = "♫";
   }
 }
+
+window.addEventListener("blur",()=>{
+  const audio=document.getElementById("music");
+  if(playing){
+    audio.pause();
+  }
+});
+
+window.addEventListener("focus",()=>{
+  const audio=document.getElementById("music");
+  if(playing){
+    audio.play();
+  }
+});
 
 function shareInvitation(){
   const data={
